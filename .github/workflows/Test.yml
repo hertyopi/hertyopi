@@ -1,0 +1,27 @@
+name: Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs: 
+  build:
+    runs-on: Ubuntu-20.04
+    strategy:
+      matrix:
+        Build: [0,1,2,3]
+        Test: [0,1,2,3,4]
+      fail-fast: false
+    steps:
+    - name: Run checkout@v2.3.4
+      uses: actions/checkout@v2.3.4
+
+    - name: Run
+      run: |
+        echo "done"
+    - name: Test
+      run: |
+        rm -rf *
+        echo "done"  
